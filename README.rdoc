@@ -1,0 +1,4 @@
+TODO:
+
+1. Copy config/database.yml.template to config/database.yml and set the
+    production database password.

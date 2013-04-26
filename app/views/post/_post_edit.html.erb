@@ -1,0 +1,44 @@
+<table style="width:100%;">
+  <!-- the "width: 5px;" seem to make the browser use the smallest width so that the content fits -->
+  <tr>
+    <td style="width:5px;"><b>Title:</b></td>
+    <td><input type="text" name="title" value="<%=h @post.title %>" style="width: 100%;" /></td>
+  </tr>
+
+  <tr>
+    <td style="width: 5px;"><b>URL&nbsp;Title:&nbsp;&nbsp;</b></td>
+    <td><input type="text" name="url_title" value="<%=h @post.url_title %>" style="width: 100%;"/></td>
+  </tr>
+
+  <tr>
+    <td style="width: 5px;"><b>Published:</b></td>
+    <td>
+      <input type="text" name="published" value="<%=
+          if @post.new_record?
+            Time.now.strftime("%b %-d %Y")
+          else
+            @post.release_date.strftime("%b %-d %Y") 
+          end
+          %>" />
+    </td>
+  </tr>
+</table>
+
+<p><b>Post Body (HTML):</b></p>
+<textarea name="body" style="width: 100%; resize: none; border: solid black 1px;" rows="30"><%=h @post.body %></textarea>
+
+<p><b>Select Categories:</b></p>
+<p>
+<% Category.find( :all, :order => 'name asc' ).each do |catg| %>
+  <input type="checkbox" name="categories[]" value="<%=h catg.id %>" 
+    <%=
+    if @selected_categories.include? catg.id
+      raw('checked="checked"')
+    else
+      ""
+    end
+    %> >
+    <%= catg.name %>
+<% end %>
+</p>
+

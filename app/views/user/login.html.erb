@@ -1,0 +1,6 @@
+
+<%= form_tag( { :controller => "user", :action => "authenticate" }, :method => :post ) do %>
+  <input type="text" name="name" value="<%=h @username %>" />
+  <input type="password" name="password" />
+  <%= submit_tag( "Login" ) %>
+<% end %>

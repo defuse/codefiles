@@ -1,0 +1,28 @@
+<table border="1">
+  <th>Name</th><th>Rename</th><th>Delete</th>
+<% Category.find( :all, :order => 'name asc' ).each do |catg| %>
+  <tr>
+    <td><%=h catg.name %></td>
+    <td>
+      <%= form_tag( { :controller => "category", :action => "rename" }, :method => "post" ) do %>
+        <input type="hidden" name="category_id" value="<%=h catg.id %>" />
+        <input type="text" name="newname" value="<%=h catg.name %>" />
+        <%= submit_tag( "Rename" ) %>
+      <% end %>
+    </td>
+    <td>
+      <%= form_tag( { :controller => "category", :action => "delete" }, :method => "post" ) do %>
+        <input type="hidden" name="category_id" value="<%=h catg.id %>" />
+        <%= submit_tag( "Delete" ) %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<h2>Create a Category</h2>
+<%= form_tag( { :controller => "category", :action => "create" }, :method => "post" ) do %>
+  Name: 
+    <input type="text" name="name" />
+  <%= submit_tag("Add") %>
+<% end %>

@@ -1,0 +1,7 @@
+<div id="postlist">
+  <% @posts.each do |p| %>
+    <h1><%= link_to p.fulltitle, p  %></h1>
+    <p><%=raw truncate( strip_tags( p.body ), :length => 200 ) %></p>
+    <hr />
+  <% end %>
+</div>

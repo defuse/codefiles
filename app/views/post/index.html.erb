@@ -1,0 +1,44 @@
+
+<table border="1">
+  <tr>
+    <th>Title</th>
+    <th>Edit</th>
+    <th>Hide/Unhide</th>
+    <th>Delete</th>
+  </tr>
+  <% Post.order( 'release_date DESC, id DESC' ).each do |post| %>
+    <tr>
+      <td>
+        <%= 
+          if post.hidden == 0
+            link_to post.fulltitle, post_path( post )
+          else
+            link_to post.fulltitle, :controller => "post", :action => "preview", :url_title => post.url_title
+          end
+        %>
+      </td>
+      <td>
+        <%= link_to "Edit", :controller => "post", :action => "edit", :id => post.id %>
+      </td>
+      <td>
+        <% if post.hidden == 1 %>
+          <%= form_tag( { :controller => "post", :action => "unhide" }, :method => "post" ) do %>
+            <input type="hidden" name="id" value="<%=h post.id %>" >
+            <%= submit_tag( "Unhide" ) %>
+          <% end %>
+        <% else %>
+          <%= form_tag( { :controller => "post", :action => "hide" }, :method => "post" ) do %>
+            <input type="hidden" name="id" value="<%=h post.id %>" >
+            <%= submit_tag( "Hide" ) %>
+          <% end %>
+        <% end %>
+      </td>
+      <td>
+        <%= form_tag( { :controller => "post", :action => "delete" }, :method => "post" ) do %>
+          <input type="hidden" name="id" value="<%=h post.id %>" >
+          <%= submit_tag( "Delete", :confirm => "Are you sure?" ) %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

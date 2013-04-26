@@ -1,0 +1,8 @@
+<div style="padding: 10px;">
+
+<%= form_tag( { :controller => "post", :action => "save", :id => @post.id }, :method => "post") do %>
+  <%= render :partial => 'post_edit' %>
+  <%= submit_tag("Save Changes") %>
+<% end  %>
+
+</div>

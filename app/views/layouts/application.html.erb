@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+  <title>The Code Files</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="header">
+    <h1><a href="<%=h root_url %>" id="headlink" >The Code Files</a></h1>
+    <h2>Code, Hacks, and Tips from <a href="https://defuse.ca/">Defuse Security</a>.</h2>
+</div>
+
+<table id="maintable" cellspacing="0" cellpadding="0" >
+    <colgroup>
+        <col span="1" style="width: 650px;">
+        <col span="1">
+    </colgroup>
+    <tr>
+        <td id="contentcell">
+          <% if flash[:error] %>
+            <div id="flashmessage"><b><%=h flash[:error] %></b></div>
+          <% end %>
+            <%= yield %>
+        </td>
+        <td id="sidebarcell">
+            <div id="sidebar">
+                <% if is_admin? %>
+                  <h2>Admin Controls</h2>
+                  <ul>
+                    <li>
+                      <%= link_to "New Post", :controller => "post", :action => "new" %>
+                    </li>
+                    <li>
+                      <%= link_to "Post List", :controller => "post", :action => "index" %>
+                    </li>
+                    <% if @post_show %>
+                      <li>
+                        <%= link_to "Edit Post", :controller => "post", :action => "edit", :id => @post_show.id %>
+                      </li>
+                    <% end %>
+                    <li>
+                      <%= link_to "Category Editor", :controller => "category", :action => "index" %>
+                    </li>
+                    <li>
+                      <%= link_to "Change Password", :controller => "user", :action => "settings" %>
+                    </li>
+                    <li>
+                      <%= link_to "Log out", :controller => "user", :action => "logout" %>
+                    </li>
+                  </ul>
+                <% end %>
+                <h2>Categories:</h2>
+                    <ul>
+                      <li>
+                        <%= link_to "All Files",  :controller => "post_viewer", :action => "viewall" %>
+                      </li>
+                    <% Category.find( :all, :order => 'name asc' ).each do |catg|
+                      bold = (@post_show && catg.posts.exists?(@post_show.id)) || (@category && @category == catg) %>
+                      <li>
+                      <%=raw bold ? "<b>" : "" %>
+                        <%= link_to( catg.name, catg ) %>
+                      <%=raw bold ? "</b>" : "" %>
+                      </li>
+                    <% end %>
+                    </ul>
+                <h2>Archive</h2>
+
+
+                <% 
+                  last_month = nil
+                  close_ul = false
+                  Post.all_visible.each do |post|
+                  month = post.release_date.strftime("%B %Y")
+                  new_month = last_month != month
+                  last_month = month
+                  bold = @post_show == post
+                %>
+                  <% 
+                    if new_month 
+                  %>
+                      <% if close_ul %>
+                        </ul>
+                      <% end %>
+                      <h3>&nbsp;&nbsp;<%=h month %></h3>
+                      <ul>
+                  <% 
+                      close_ul = true
+                    end 
+                  %>
+                    <li>
+                    <%=raw bold ? "<b>" : "" %>
+                      <%= link_to post.fulltitle, post_path( post ) %>
+                    <%=raw bold ? "</b>" : "" %>
+                    </li>
+                <% end %>
+                </ul>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<%= form_tag( { :controller => "user", :action => "save_settings" }, :method => "post" ) do %>
+<table>
+  <tr>
+    <td>Old Password:</td>
+    <td><input type="password" name="old" value="" /></td>
+  </tr>
+  <tr>
+    <td>New Password:</td>
+    <td><input type="password" name="new" value="" /></td>
+  </tr>
+  <tr>
+    <td>Confirm:</td>
+    <td><input type="password" name="new_confirm" value="" /></td>
+  </tr>
+</table>
+<%= submit_tag( "Change Password" ) %>
+<% end %>

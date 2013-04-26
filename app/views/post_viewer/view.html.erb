@@ -1,0 +1,44 @@
+<div id="title">
+  <h1><%=h @post_show.fulltitle %></h1>
+</div>
+
+<div id="postbody">
+  <%= raw(@post_show.body) %>
+</div>
+
+<div id="eof">
+  &ndash;EOF&ndash;
+
+  <% if @post_show.previous %>
+    <a href="<%= post_path @post_show.previous %>" class="nexpre" style="float: left;"
+      title="Previous File: <%=h @post_show.previous.title %>" >
+      <span class="padbox">&laquo;</span>
+    </a>
+  <% else %>
+    <div class="nexpre" style="float: left;">
+      <span class="padbox" style="color: #CCCCCC;">&laquo;</span>
+    </div>
+  <% end %>
+
+  <% if @post_show.next %>
+    <a href="<%= post_path @post_show.next %>" class="nexpre" style="float: right;"
+      title="Next File: <%=h @post_show.next.title %>">
+      <span class="padbox">&raquo;</span>
+    </a>
+  <% else %>
+    <div class="nexpre" style="float: right;">
+      <span class="padbox" style="color: #CCCCCC;">&raquo;</span>
+    </div>
+  <% end %>
+
+</div>
+
+<div id="stats">
+  <table>
+    <tr><td>Published:</td><td><%=h @post_show.release_date.strftime( "%b %d, %Y" )  %></td></tr>
+    <tr><td>Modified:</td><td><%=h @post_show.modify_date.strftime( "%b %d, %Y" ) %></td></tr>
+    <% if is_admin? %>
+      <tr><td>Hits:</td><td><%=h @post_show.hits %></td></tr>
+    <% end %>
+  </table>
+</div>
