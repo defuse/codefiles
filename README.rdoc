@@ -2,3 +2,5 @@ TODO:
 
 1. Copy config/database.yml.template to config/database.yml and set the
     production database password.
+
+2. Create the ./tmp folder.
