@@ -15,16 +15,16 @@
 body, h1, h2, h3 { margin:0; padding:0; border:0; }
 
 body {
-    font-family: "Courier New", monospace;
     background-color: white;
     color: black;
+    font-family: verdana,tahoma,arial,helvetica,sans-serif,"MS Sans Serif";
 }
 
 #header {
     width: 800px;
-    text-align: center;
-    margin-top: 5px;
-    padding-bottom: 8px;
+    margin-top: 20px;
+    padding-bottom: 18px;
+    padding-left: 20px;
     border-bottom: solid #cccccc 1px;
 }
 
@@ -95,6 +95,7 @@ body {
     padding-left: 10px;
     margin-left: 5px;
     border-left: solid black 1px;
+    font-family: "Courier New", monospace;
 }
 
 /* TODO: make these meaningful */
@@ -124,6 +125,10 @@ body {
     white-space: nowrap;
 }
 
+#sidebar h2 {
+    margin-bottom: 10px;
+}
+
 #eof {
     font-size: 13pt;
     font-weight: bold;
@@ -131,6 +136,7 @@ body {
     width: 100%;
     /* So the gray bar extends down further */
     padding-bottom: 20px;
+    font-family: "Courier New", monospace;
 }
 
 .nexpre {
